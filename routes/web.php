@@ -18,3 +18,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function (){
+    Route::get('/dashboard',[
+        'as' => 'admin.dashboard',
+        'uses' => 'AdminController@index'
+    ]);
+
+    Route::get('/export-pdf', [
+        'as' => 'category.export.pdf',
+        'uses' => 'CategoryController@createPdf'
+    ]);
+
+    //  Resources Routes
+    Route::resource('product', 'ProductController');
+    Route::resource('category', 'CategoryController');
+});

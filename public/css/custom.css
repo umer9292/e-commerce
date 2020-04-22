@@ -1,0 +1,101 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .875rem;
+}
+
+/*  Sidebar   */
+
+.sidebar {
+    position: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 48px; /* Height of navbar */
+    height: calc(100vh - 48px);
+    padding-top: 3.5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.border-bottom { border-bottom: 2px groove #121e22 !important; }
+
+.sidebar .nav-link { font-weight: 500;color: #fff; }
+
+.sidebar .nav-link:hover { border-left: 5px groove #f44336 !important; }
+
+.current{ color: #f44336 !important; }
+
+.current:hover{ border-left: 5px groove #fff !important; }
+
+.sidebar .nav-link i { margin-right: 4px; }
+
+.list-group-item {
+    padding: 5px 20px 5px 40px;
+    margin-bottom: 0 !important;
+    background-color: transparent;
+    border: 0 !important;
+}
+.list-group-item-action {
+    width: 100%;
+    color: #fff;
+    text-align: left;
+    font-size: 11px;
+}
+.list-group-item-action:hover {
+    border-left: 5px solid #f44336 !important;
+    color: #fff !important;
+    background: transparent;
+    border-radius: 0 !important;
+}
+
+/*  Navbar   */
+
+.navbar-brand {
+    font-family: Broadway;
+    font-size: 25px ;
+    color: #f44336;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #fff !important;
+    transition: all .4s;
+}
+
+.search-input:focus {
+    background: transparent;
+    box-shadow: none;
+    border-bottom: 2px solid #dc3545;
+}
+
+.search-button {
+    border-radius: 50%;
+    padding: 5px 10px;
+    background-color: #eee;
+}
+
+.search-button:hover { transform: translateY(-1px) ;}
+
+/*
+ * Utilities
+ */
+
+.border_top { border-top: 1px solid #e5e5e5; }
+.border_bottom { border-bottom: 1px solid #e5e5e5; width: 80%}
+
+.category-card{
+    background-color: #c0cdd8 !important;
+}
