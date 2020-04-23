@@ -21,7 +21,7 @@
             <tr class="text-muted">
                 <th>No</th>
                 <th>Title</th>
-                <th>Parent Id</th>
+                <th>Category</th>
                 <th>Created At</th>
                 <th>Actions</th>
             </tr>
@@ -32,7 +32,13 @@
                     <tr>
                         <th>{{$loop->iteration}}</th>
                         <td>{{$category->title}}</td>
-                        <td>{{$category->parent_id}}</td>
+                        <td>
+                            @if($category->parent_id == 0)
+                                <strong class="badge badge-pill badge-success">Category</strong>
+                            @else
+                                <strong class="badge badge-pill badge-info">Sub Category</strong>
+                            @endif
+                        </td>
                         <td>{{$category->created_at}}</td>
                         <td>
                             <div class="btn-group">

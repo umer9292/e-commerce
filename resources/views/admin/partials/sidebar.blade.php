@@ -13,7 +13,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-file"></i>
+                    <i class="fas fa-shopping-cart"></i>
                     Orders
                 </a>
             </li>
@@ -29,7 +29,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-shopping-cart"></i>
+                    <i class="fas fa-tag"></i>
                     Products
                 </a>
             </li>
@@ -53,13 +53,13 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-layer-group"></i>
-                    Integrations
+                    <i class="fas fa-bug"></i>
+                    Logs
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fas fa-wrench"></i>
+                    <i class="fa fa-wrench"></i>
                     Settings
                 </a>
             </li>

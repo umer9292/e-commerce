@@ -1,6 +1,5 @@
 @extends('admin.layout')
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Categories</a></li>
     <li class="breadcrumb-item active" aria-current="page">Add Category</li>
 @endsection
@@ -53,7 +52,7 @@
             });
 
             $('#parent_id').select2({
-                placeholder: "Select a Sub-Category",
+                placeholder: "Select a Parent Category",
                 allowClear : true,
                 minimumResultsForSearch: Infinity
             });

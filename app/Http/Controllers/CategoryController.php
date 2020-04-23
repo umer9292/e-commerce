@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use App\Category;
 use App\Http\Requests\StoreCategory;
 use PDF;
@@ -16,7 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderByDesc('id')->paginate(5);
+        Log::error('test');
+        $categories = Category::orderByDesc('id')->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -43,8 +45,9 @@ class CategoryController extends Controller
             $category = Category::create([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'parent_id' => $request->parent_id,
+                'parent_id' => $request->parent_id ? $request->parent_id : 0,
             ]);
+//            dd($category);
             if ($category)
                 return back()->with('success', 'Success - Category Successfully Created.');
             else

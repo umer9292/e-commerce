@@ -1,6 +1,5 @@
 @extends('admin.layout')
 @section('breadcrumbs')
-    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('category.index') }}">Categories</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
 @endsection

@@ -12,14 +12,20 @@
             <table width="100%">
                 <tr style="background: black; color: white">
                     <th>No.</th>
+                    <th>Title</th>
                     <th>Category</th>
-                    <th>Parent_id</th>
                 </tr>
                 @foreach($categories as $category)
                     <tr style="text-align: center">
                         <td>{{$loop->iteration}}</td>
                         <td>{{$category->title}}</td>
-                        <td>{{$category->parent_id}}</td>
+                        <td>
+                            @if($category->parent_id == 0)
+                                <strong style="color: green">Category</strong>
+                            @else
+                                <strong style="color: lightskyblue">Sub Category</strong>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </table>
