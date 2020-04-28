@@ -16,16 +16,12 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->string('slug');
             $table->text('description');
             $table->double('price');
             $table->integer('category_id');
-            $table->boolean('discount')->default(0);
-            $table->integer('discount_price')->default(0);
-            $table->boolean('is_published')->default(0);
+            $table->integer('discount')->nullable();
+            $table->boolean('status')->default(0);
             $table->integer('weight');
-            $table->text('options');
-            $table->dateTime('restore_at')->nullable();
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('categories');

@@ -24,14 +24,18 @@
                 </a>
                 <div class="list-group" id="categoryCollapse">
                     <a href="{{route('category.create')}}" class="list-group-item list-group-item-action">Add New Category</a>
-                    <a href="{{route('category.index')}}" class="list-group-item list-group-item-action">Categories List</a>
+                    <a href="{{route('category.index')}}" class="list-group-item list-group-item-action">Category List</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-tag"></i>
+                <a class="nav-link" data-toggle="collapse" href="#productCollapse" aria-expanded="false" aria-controls="productCollapse">
+                    <i class="fas fa-tags"></i>
                     Products
                 </a>
+                <div class="list-group" id="productCollapse">
+                    <a href="{{route('product.create')}}" class="list-group-item list-group-item-action">Add New Product</a>
+                    <a href="{{route('product.index')}}" class="list-group-item list-group-item-action">Product List</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -52,7 +56,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{url('/log-viewer/')}}">
                     <i class="fas fa-bug"></i>
                     Logs
                 </a>

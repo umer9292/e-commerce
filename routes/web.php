@@ -30,6 +30,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         'uses' => 'CategoryController@createPdf'
     ]);
 
+    Route::get('/export-pdf', [
+        'as' => 'product.export.pdf',
+        'uses' => 'ProductController@createPdf'
+    ]);
+
     //  Resources Routes
     Route::resource('product', 'ProductController');
     Route::resource('category', 'CategoryController');

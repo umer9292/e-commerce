@@ -32,10 +32,10 @@
                     </ol>
                 </nav>
                 @yield('content')
+
             </main>
         </div>
     </div>
-
 
     <!-- Scripts -->
     <script src="{{ asset('assets/js/vendor.js') }}"></script>

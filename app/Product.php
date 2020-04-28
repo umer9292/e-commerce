@@ -2,10 +2,15 @@
 
 namespace App;
 
+use App\ProductImage;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     protected $guarded = [];
 
+    public function productImage()
+    {
+        return $this->belongsTo('App\ProductImage');
+    }
 }
