@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Cart;
 use App\Category;
 use App\Http\Requests\StoreProduct;
 use App\Product;
 use App\ProductImage;
+use Illuminate\Support\Facades\Session;
 use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -86,7 +88,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $productImage = ProductImage::first();
+        $productImage = ProductImage::where('product_id', $product->id)
+                                ->first();
         return view('admin.products.single', compact('product', 'productImage'));
     }
 

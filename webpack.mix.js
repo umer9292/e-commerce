@@ -10,9 +10,6 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-// mix.scripts([
-//     'public/js/.js',
-// ], 'public/assets/js/vendor.js');
 
 mix.scripts([
     'public/js/jquery-3.3.1.min.js',

@@ -11,13 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'as' => 'products.all',
+    'uses' => 'HomeController@index'
+]);
+
+Route::get('/single/{product}', [
+    'as' => 'product.single',
+    'uses' => 'HomeController@single'
+]);
+
+Route::get('/addToCart/{product}', [
+    'as' => 'product.addToCart',
+    'uses' => 'HomeController@addToCart'
+]);
+
+Route::get('/products/cart', [
+    'as' => 'products.cart',
+    'uses' => 'HomeController@cart'
+]);
+
+Route::post('/remove/{product}', [
+    'as' => 'remove.product',
+    'uses' => 'HomeController@removeProduct'
+]);
+
+Route::post('/update/{product}', [
+    'as' => 'update.product',
+    'uses' => 'HomeController@updateCart'
+]);
+
+Route::resource('checkout', 'OrderController');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function (){
     Route::get('/dashboard',[
@@ -25,7 +51,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         'uses' => 'AdminController@index'
     ]);
 
-    Route::get('/export-pdf', [
+    Route::post('/export-pdf', [
         'as' => 'category.export.pdf',
         'uses' => 'CategoryController@createPdf'
     ]);

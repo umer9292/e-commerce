@@ -99,3 +99,143 @@ body {
 .category-card{
     background-color: #c0cdd8 !important;
 }
+
+/*  products page navbar style  */
+.background{
+    background-color: #5e6df2 !important;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(255, 255, 255);
+}
+.search_field{
+    background-color: white;
+    border-radius: 22px;
+    margin: 2px 0;
+}
+.search_button{
+    background: transparent;
+    border: none;
+    font-size: 17px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.search_input{
+    background: transparent;
+    border: none;
+    margin-right: 25px;
+    width: 250px !important;
+}
+.search_input:hover{
+    color: gray !important;
+}
+.search_input:focus{
+    outline: none !important;
+}
+.search_input::placeholder {
+    color: rgba(176, 182, 201, 0.74);
+}
+.search_input:hover::placeholder {
+    color: rgba(156, 156, 156, 0.82) !important;
+}
+
+.product-title {
+    font-family: cursive;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #5e6df2;
+}
+.product-title strong{
+    font-size: 15px;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: rgba(51, 65, 81, 0.38) ;
+    height: 100%;
+    width: 90%;
+    opacity: 0;
+    transition: .75s ease;
+}
+
+.ctr {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    text-align: center;
+    padding-top: 27%;
+}
+
+.img-hover:hover .overlay{
+    opacity: 1;
+}
+
+
+/* start cart page css */
+.shopNow-btn {
+    font-family: cursive;
+    background-color: #f67900;
+    color: #fff;
+    padding: 8px 70px 8px 70px !important;
+    font-size: 20px;
+}
+.shopNow-btn:hover {
+    color: #fff;
+    transform: translate3d(5px, 2px, 5px);
+}
+.cart-heading {
+    font-family: cursive;
+    color: #007bff;
+    font-size: 50px;
+    font-weight: 900;
+    margin-top: 12px;
+    margin-bottom: 30px;
+}
+.param {
+    margin-bottom: 7px;
+    line-height: 1.4;
+}
+.param-inline dt {
+    display: inline-block;
+}
+.param dt {
+    margin: 0;
+    margin-right: 7px;
+    font-weight: 600;
+}
+.param-inline dd {
+    vertical-align: baseline;
+    display: inline-block;
+}
+
+.param dd {
+    margin: 0;
+    vertical-align: baseline;
+}
+
+.shopping-cart-wrap .price {
+    color: #007bff;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+    display: block;
+}
+span.price {
+    font-style: normal;
+}
+
+.media img {
+    margin-right: 1rem;
+}
+.img-sm {
+    width: 90px;
+    max-height: 75px;
+    object-fit: cover;
+}
+/* ends cart page css */
