@@ -29,7 +29,6 @@ class HomeController extends Controller
         $products = Product::with('productImage')
             ->orderByDesc('id')
             ->paginate(10);
-//        dd($products);
         return view('products.all', compact('products'));
     }
 
@@ -73,7 +72,7 @@ class HomeController extends Controller
     public function cart()
     {
         if (!Session::has('cart')) {
-            return view('products.all');
+            return view('products.cart');
         }
 
         $cart = Session::get('cart');
@@ -82,6 +81,9 @@ class HomeController extends Controller
 
     public function checkout()
     {
+        if (!Session::has('cart') || empty(Session::get('cart')->getContents())) {
+            return redirect('/')->with('info', 'Info - No Products in the Cart');
+        }
         $cart = Session::get('cart');
         return view('products.checkout', compact('cart'));
     }

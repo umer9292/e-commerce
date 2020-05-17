@@ -41,7 +41,12 @@ Route::post('/update/{product}', [
     'uses' => 'HomeController@updateCart'
 ]);
 
-Route::resource('checkout', 'OrderController');
+Route::get('/products/checkout', [
+    'as' => 'checkout',
+    'uses' => 'HomeController@checkout'
+]);
+
+Route::resource('orders', 'OrderController');
 
 Auth::routes();
 

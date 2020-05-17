@@ -7,6 +7,7 @@ class Cart
     private $contents;
     private $totalQty;
     private $totalPrice;
+    private $totalWeight;
 
     public function __construct($oldCart)
     {
@@ -14,12 +15,13 @@ class Cart
             $this->contents = $oldCart->contents;
             $this->totalQty = $oldCart->totalQty;
             $this->totalPrice = $oldCart->totalPrice;
+            $this->totalWeight = $oldCart->totalWeight;
         }
     }
 
     public function addProduct($product, $qty)
     {
-        $products = ['qty' => 0, 'price' => $product->price, 'product' => $product];
+        $products = ['qty' => 0, 'price' => $product->price, 'weight' => $product->weight, 'product' => $product];
         if ($this->contents) {
             if (array_key_exists($product->id, $this->contents)) {
                 $products = $this->contents[$product->id];
@@ -28,9 +30,11 @@ class Cart
 
         $products['qty'] += $qty;
         $products['price'] = $product->price * $products['qty'];
+        $products['weight'] += $product->weight;
         $this->contents[$product->id] = $products;
         $this->totalQty += $qty;
         $this->totalPrice += $product->price;
+        $this->totalWeight += $product->weight;
     }
 
     public function removeProduct($product)
@@ -40,6 +44,7 @@ class Cart
                 $rProducts = $this->contents[$product->id];
                 $this->totalQty -= $rProducts['qty'];
                 $this->totalPrice -= $rProducts['price'];
+                $this->totalWeight -= $rProducts['weight'];
                 array_forget($this->contents, $product->id);
             }
         }
@@ -55,9 +60,12 @@ class Cart
 
         $this->totalQty -= $products['qty'];
         $this->totalPrice -= $products['price'];
+        $this->totalWeight -= $products['weight'];
         $products['qty'] = $qty;
         $products['price'] = $product->price * $products['qty'];
+        $products['weight'] = $product->weight;
         $this->totalPrice += $products['price'];
+        $this->totalWeight += $products['weight'];
         $this->totalQty += $qty;
         $this->contents[$product->id] = $products;
     }
@@ -84,5 +92,13 @@ class Cart
     public function getTotalQty()
     {
         return $this->totalQty;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTotalWeight()
+    {
+        return $this->totalWeight;
     }
 }

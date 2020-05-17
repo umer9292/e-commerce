@@ -79,8 +79,9 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('products.cart')}}">
+                    <a class="nav-link icon-parent" href="{{route('products.cart')}}">
                         <i class="fa fa-shopping-cart fa-2x"></i>
+                        <span>5</span>
                     </a>
                 </li>
             </ul>

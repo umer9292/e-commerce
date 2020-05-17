@@ -89,6 +89,23 @@ body {
 
 .search-button:hover { transform: translateY(-1px) ;}
 
+.icon-parent{
+    position: relative;
+}
+
+.icon-parent span{
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    top: 1px;
+    right: 1px;
+    width: 17px;
+    height: 17px;
+    color: #fff;
+    background: orangered !important;
+    border-radius: 50%;
+}
+
 /*
  * Utilities
  */

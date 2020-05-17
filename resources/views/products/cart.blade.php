@@ -11,6 +11,7 @@
                     <thead class="text-primary font-weight-bold">
                         <tr>
                             <th scope="col">Product</th>
+                            <th scope="col" width="120">Weight</th>
                             <th scope="col" width="120">Quantity</th>
                             <th scope="col" width="120">Price</th>
                             <th scope="col" width="200" class="text-right">Action</th>
@@ -43,6 +44,9 @@
                                 </figure>
                             </td>
                             <td>
+                                {{$product['product']->weight}} gram
+                            </td>
+                            <td>
                                 <form method="POST" action="{{route('update.product', $product['product']->id)}}" >
                                     @csrf
                                     <input type="number" name="qty" id="qty" class="form-control text-center" min="0" max="99" value="{{$product['qty']}}">
@@ -63,13 +67,17 @@
                             </td>
                         </tr>
                     @endforeach
-                    <tr class="">
-                        <th colspan="3">Total Qty: </th>
+                    <tr>
+                        <th colspan="4">Total Qty: </th>
                         <td colspan="1">{{$cart->getTotalQty()}}</td>
                     </tr>
-                    <tr class="">
-                        <th colspan="3">Total Price: </th>
+                    <tr>
+                        <th colspan="4">Total Price: </th>
                         <td colspan="1">Rs.{{$cart->getTotalPrice()}}.00</td>
+                    </tr>
+                    <tr>
+                        <th colspan="4">Total Weight: </th>
+                        <td colspan="1">{{$cart->getTotalWeight()}} grams</td>
                     </tr>
                     </tbody>
                 </table>
@@ -77,7 +85,7 @@
                     <a href="{{route('products.all')}}" class="btn btn-sm btn-warning">
                         <i class="fas fa-chevron-left mr-2"></i>Continue Shopping
                     </a>
-                    <a href="{{route('checkout.index')}}" class="btn btn-sm btn-success text-right">
+                    <a href="{{route('checkout')}}" class="btn btn-sm btn-success text-right">
                         Checkout <i class="fas fa-chevron-right ml-2"></i>
                     </a>
                 </div>

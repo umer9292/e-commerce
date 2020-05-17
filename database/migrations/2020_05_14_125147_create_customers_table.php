@@ -19,7 +19,7 @@ class CreateCustomersTable extends Migration
             $table->string('last_name');
             $table->string('username');
             $table->string('email');
-            $table->integer('phone');
+            $table->string('phone', 100);
             $table->string('address_1');
             $table->string('address_2');
             $table->string('country');
