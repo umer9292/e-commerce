@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreOrderStatus;
 use App\OrderStatus;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class OrderStatusController extends Controller
      */
     public function index()
     {
-        //
+        $orderStatuses = OrderStatus::orderByDesc('id')->paginate(10);
+        return view('admin.orders.order_status', compact('orderStatuses'));
     }
 
     /**
@@ -24,7 +26,7 @@ class OrderStatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.orders.create_order_status');
     }
 
     /**
@@ -33,9 +35,24 @@ class OrderStatusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreOrderStatus $request)
     {
-        //
+        try {
+            $orderStatus = OrderStatus::create([
+                'title' => $request->title,
+                'color' => $request->color,
+                'is_paid' => $request->is_paid,
+                'is_delivered' => $request->is_delivered,
+                'is_active' => $request->is_active,
+                'is_deleted' => $request->is_deleted,
+            ]);
+            if ($orderStatus)
+                return back()->with('success', 'Success - Order Status Successfully Created.');
+            else
+                return back()->with('error', 'Error - Error in Created Order Status.');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**

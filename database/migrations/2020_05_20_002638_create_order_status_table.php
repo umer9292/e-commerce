@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrderStatusesTable extends Migration
+class CreateOrderStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,6 +21,7 @@ class CreateOrderStatusesTable extends Migration
             $table->boolean('is_delivered');
             $table->boolean('is_active');
             $table->boolean('is_deleted');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +32,6 @@ class CreateOrderStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_statuses');
+        Schema::dropIfExists('order_status');
     }
 }

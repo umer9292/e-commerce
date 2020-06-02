@@ -67,6 +67,23 @@ body {
     color: #f44336;
 }
 
+.breadcrumb {
+    background-color: transparent;
+    margin-bottom: 0;
+    border-radius: 0;
+    border-bottom: 2px solid #f44336;
+}
+
+.breadcrumb .breadcrumb-item a {
+    color: #f44336;
+}
+.breadcrumb .breadcrumb-item a:hover {
+    color: #f44336;
+}
+.breadcrumb-item.active {
+    color: #fff;
+}
+
 .search-input {
     background: transparent;
     border: none;
@@ -256,3 +273,25 @@ span.price {
     object-fit: cover;
 }
 /* ends cart page css */
+
+.zeroPadding {
+    padding: 0 !important;
+}
+
+@font-face {
+    font-family: 'DIGITAL';
+    src: url('https://cssdeck.com/uploads/resources/fonts/digii/DS-DIGII.TTF');
+}
+
+.digital-clock {
+    margin: auto;
+    position: absolute;
+    width: 400px;
+    height: 100px;
+    color: #ffffff;
+    border: 2px solid #999;
+    border-radius: 4px;
+    text-align: center;
+    font: 70px/80px 'DIGITAL', Helvetica;
+    background: linear-gradient(90deg, #000, #555);
+}

@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/css/vendor.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet" type="text/css">
+    @yield('extra-css')
 </head>
 <body>
 
@@ -26,11 +27,7 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 {{--                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">--}}
 {{--                </div>--}}
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        @yield('breadcrumbs')
-                    </ol>
-                </nav>
+
                 @yield('content')
 
             </main>
@@ -42,7 +39,39 @@
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('extra-js')
     <script>
-        $('.element').tooltip()
+        $('.element').tooltip();
+        $(document).ready(function() {
+            clockUpdate();
+            setInterval(clockUpdate, 1000);
+        });
+
+        function clockUpdate() {
+            var date = new Date();
+            $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
+            function addZero(x) {
+                if (x < 10) {
+                    return x = '0' + x;
+                } else {
+                    return x;
+                }
+            }
+
+            function twelveHour(x) {
+                if (x > 12) {
+                    return x = x - 12;
+                } else if (x == 0) {
+                    return x = 12;
+                } else {
+                    return x;
+                }
+            }
+
+            var h = addZero(twelveHour(date.getHours()));
+            var m = addZero(date.getMinutes());
+            var s = addZero(date.getSeconds());
+
+            $('.digital-clock').text(h + ':' + m + ':' + s)
+        }
     </script>
 </body>
 </html>

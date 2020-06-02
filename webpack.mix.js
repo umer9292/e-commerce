@@ -13,8 +13,9 @@ let mix = require('laravel-mix');
 
 mix.scripts([
     'public/js/jquery-3.3.1.min.js',
-    'public/js/popper.min.js',
     'public/js/bootstrap.min.js',
+    'public/js/popper.min.js',
+    'public/js/sweetalert.min.js',
 ], 'public/assets/js/vendor.js');
 mix.styles([
     'public/css/bootstrap.min.css',

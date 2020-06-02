@@ -17,7 +17,7 @@
             <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span> <i class="fas fa-check-circle "></i> <b> Success - </b> {{ session('success') }}</span>
+            <span> <i class="fas fa-check-circle "></i> {{ session('success') }}</span>
         </div>
     @endif
 
@@ -26,7 +26,7 @@
             <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span> <i class="fas fa-info-circle "></i> <b> Info - </b> {{ session('info') }}</span>
+            <span> <i class="fas fa-info-circle "></i> {{ session('info') }}</span>
         </div>
     @endif
 
@@ -35,7 +35,7 @@
             <button type="button" aria-hidden="true" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <span> <i class="fas fa-bell "></i> <b> Error - </b> {{ session('error') }}</span>
+            <span> <i class="fas fa-bell "></i> {{ session('error') }}</span>
         </div>
     @endif
 </div>

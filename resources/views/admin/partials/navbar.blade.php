@@ -28,12 +28,18 @@
     </button>
 
     <div class="col-md-8">
-        <form>
-            <div class="input-group">
-                <input type="text" class="form-control search-input" placeholder="Search.. ">
-                <button type="button" class="btn btn-white search-button"><i class="fas fa-search text-danger"></i></button>
-            </div>
-        </form>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}"> <i class="fas fa-home"></i> &nbsp;Dashboard</a></li>
+                @yield('breadcrumbs')
+            </ol>
+        </nav>
+{{--        <form>--}}
+{{--            <div class="input-group">--}}
+{{--                <input type="text" class="form-control search-input" placeholder="Search.. ">--}}
+{{--                <button type="button" class="btn btn-white search-button"><i class="fas fa-search text-danger"></i></button>--}}
+{{--            </div>--}}
+{{--        </form>--}}
     </div>
     <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav ml-auto">

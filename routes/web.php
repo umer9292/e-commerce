@@ -46,7 +46,11 @@ Route::get('/products/checkout', [
     'uses' => 'HomeController@checkout'
 ]);
 
-Route::resource('orders', 'OrderController');
+Route::post('/checkout/store', [
+    'as' => 'checkout.store',
+    'uses' => 'HomeController@storeCheckout'
+]);
+
 
 Auth::routes();
 
@@ -69,4 +73,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     //  Resources Routes
     Route::resource('product', 'ProductController');
     Route::resource('category', 'CategoryController');
+    Route::resource('order', 'OrderController');
+    Route::resource('orderItem', 'OrderItemController');
+    Route::resource('orderStatus', 'OrderStatusController');
 });

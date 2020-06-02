@@ -12,17 +12,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                    Orders
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse">
                     <i class="fas fa-list-alt"></i>
                     Categories
                 </a>
-                <div class="list-group" id="categoryCollapse">
+                <div class="list-group collapse" id="categoryCollapse">
                     <a href="{{route('category.create')}}" class="list-group-item list-group-item-action">Add New Category</a>
                     <a href="{{route('category.index')}}" class="list-group-item list-group-item-action">Category List</a>
                 </div>
@@ -32,16 +26,26 @@
                     <i class="fas fa-tags"></i>
                     Products
                 </a>
-                <div class="list-group" id="productCollapse">
+                <div class="list-group collapse" id="productCollapse">
                     <a href="{{route('product.create')}}" class="list-group-item list-group-item-action">Add New Product</a>
                     <a href="{{route('product.index')}}" class="list-group-item list-group-item-action">Product List</a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="#" >
                     <i class="fas fa-images"></i>
                     Product Images
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" role="button" href="#collapseOrder" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOrder">
+                    <i class="fas fa-shopping-cart"></i>
+                    Orders
+                </a>
+                <div class="list-group collapse" id="collapseOrder">
+                    <a href="{{route('order.index')}}" class="list-group-item list-group-item-action">Order List</a>
+                    <a href="{{route('orderStatus.index')}}" class="list-group-item list-group-item-action">Order Status</a>
+                </div>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">
