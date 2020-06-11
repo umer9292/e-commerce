@@ -15,3 +15,7 @@ function getOnlyDate ($date) {
 function getProductImage ($productId) {
     return \App\ProductImage::where('product_id', '=', $productId)->first();
 }
+
+function myCart(){
+    return new \App\Cart(\Session::get('cart'));
+}

@@ -1,10 +1,10 @@
 @extends('admin.layout')
 
-@section('breadcrumbs')
+@section('extra-css')
     <link href="{{ asset('css/bootstrap-colorpicker.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
-@section('extra-css')
+@section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{route('orderStatus.index')}}">Order Status</a></li>
     <li class="breadcrumb-item active" aria-current="page">Create Order Status</li>
 @endsection

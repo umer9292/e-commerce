@@ -81,7 +81,9 @@
                 <li class="nav-item">
                     <a class="nav-link icon-parent" href="{{route('products.cart')}}">
                         <i class="fa fa-shopping-cart fa-2x"></i>
-                        <span>5</span>
+                        @if(!empty(myCart()->getTotalQty()))
+                        <span>{{myCart()->getTotalQty()}}</span>
+                        @endif
                     </a>
                 </li>
             </ul>

@@ -3,32 +3,35 @@
     <li class="breadcrumb-item active" aria-current="page">Orders</li>
 @endsection
 @section('content')
+    @include('admin.modal')
     @include('layouts.partials.message')
     <div class="pb-2 mb-3 border-bottom">
         <h1 class="h2">Order List</h1>
     </div>
+        <button class="btn btn-sm btn-outline-danger mb-2 float-right del_order_btn"> <i class="fas fa-trash-alt"></i> &nbsp; Delete </button>
         <table class="table" id="myTable">
             <thead>
-            <tr>
-                <th>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input " id="select_all">
-                    </div>
-                </th>
-                <th></th>
-                <th>Customer</th>
-                <th class="text-success">@sortablelink('Country')</th>
-                <th class="text-success">@sortablelink('Total')</th>
-                <th class="text-success">@sortablelink('Weight')</th>
-                <th class="text-success">@sortablelink('Status')</th>
-                <th>Created (Updated)</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input " id="select_all">
+                        </div>
+                    </th>
+                    <th></th>
+                    <th>Customer</th>
+                    <th class="text-success">@sortablelink('country')</th>
+                    <th class="text-success">@sortablelink('price', 'total')</th>
+                    <th class="text-success">@sortablelink('weight')</th>
+                    <th class="text-success">@sortablelink('status')</th>
+                    <th>Created (Updated)</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
                 @if($orders->count() > 0)
                     @foreach($orders as $order)
-                        <tr style="background-color: {{$order->orderStatus ? $order->orderStatus->color : 'blue'}};">
+                        <tr data-toggle="collapse" data-target="#target{{$order->id}}" aria-expanded="false"
+                            style="background-color: {{$order->orderStatus ? $order->orderStatus->color : 'blue'}};">
                             <td>
                                 <div class="form-group form-check">
                                     <input type="checkbox" class="form-check-input checkbox">
@@ -36,15 +39,142 @@
                             </td>
                             <td><span class="badge badge-pill badge-success">Pris</span></td>
                             <td>{{$order->customer->first_name . ' ' . $order->customer->last_name}}</td>
-                            <td>{{$order->customer->country}}</td>
-                            <td><span class="badge badge-pill badge-success">{{$order->price}}Rs</span></td>
-                            <td>{{$order->weight}}g</td>
+                            <td>
+                                <img src="{{url("flags/{$order->customer->country}.png")}}" alt="{{$order->customer->country}}">
+                            </td>
+                            <td><span class="badge badge-pill badge-success">{{floor($order->price)}}&nbsp;Rs</span></td>
+                            <td>{{floor($order->weight)}}g</td>
                             <td>{{$order->orderStatus->title}}</td>
                             <td>{{getOnlyDate($order->created_at)}} ({{diff4Human($order->updated_at)}})</td>
                             <td>
                                 <a href="" class="element" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fas fa-edit text-success"></i>
                                 </a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="9">
+                                <div class="collapse" id="target{{$order->id}}">
+                                    <div class="row mb-2">
+                                        <div class="col-md-12">
+                                            <div class="float-right">
+                                                <select class="form-control order-status" order-no="{{$order->id}}">
+                                                    <option selected hidden>Select Order Status</option>
+                                                    @if(isset($orderStatus) && count($orderStatus) > 0)
+                                                        @foreach($orderStatus AS $status)
+                                                            <option value="{{$status->id}}" {{$status->id == $order->orderStatus->id ? 'selected' : null}} >
+                                                                {{$status->title}}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Art.no</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Price/pcs</th>
+                                                <th scope="col">Weight</th>
+                                                <th scope="col">Sold</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($order->orderitems) > 0)
+                                                @foreach($order->orderitems as $item)
+                                                    <tr>
+                                                        <td>
+                                                            <a href="{{route('product.show', $item->product_id)}}" target="_blank" class="text-info"> {{$item->product_id}}&nbsp;<i class="fas fa-info-circle"></i></a>
+                                                        </td>
+                                                        <td class="text-success"><b>{{$item->quantity}}&nbsp;PCS</b></td>
+                                                        <td>{{$item->product()->title}}</td>
+                                                        <td>{{floor($item->price)}} Rs</td>
+                                                        <td>{{floor($item->weight)}}g</td>
+                                                        <td>{{diff4Human($item->created_at)}}</td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="btn badge badge-pill badge-secondary order_item_btn"
+                                                                data-order-id = "{{$order->id}}"
+                                                                data-item-id = "{{$item->id}}"
+                                                                data-title = "{{$item->product()->title}}"
+                                                                data-quantity = "{{$item->quantity}}"
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <strong>Payment Method: <span class="badge badge-success">Paypal</span></strong>
+                                                            <br>
+                                                            <strong>Market Place: <small class="badge badge-pill badge-success">Bhatti Town</small></strong>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <b>Delivery Address:</b>
+                                                            <a href=""
+
+                                                            >
+                                                                <i class="fas fa-edit text-success"></i>
+                                                            </a><br>
+                                                            <small>
+                                                                {{$order->customer->first_name . ' ' . $order->customer->last_name}} <br>
+                                                                {{$order->customer->address_1}}<br>
+                                                                {{$order->customer->address_2}}
+                                                            </small>
+                                                        </td>
+                                                        <td colspan="1">
+                                                            <b>Customer:</b>
+                                                            <a href="">
+                                                                <i class="fas fa-edit text-success"></i>
+                                                            </a><br>
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>E-Mail</td>
+                                                                    <td>{{$order->customer->email}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Phone</td>
+                                                                    <td>{{$order->customer->phone}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>CelPhone</td>
+                                                                    <td>{{$order->customer->phone}}</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                        <td colspan="4">
+                                                            <br>
+                                                            <table class="table table-bordered">
+                                                                <tr>
+                                                                    <td>Shipping</td>
+                                                                    <td>0 Rs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Total</td>
+                                                                    <td>{{floor($order->price)}}Rs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Whereof tax</td>
+                                                                    <td>115Rs</td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        </>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -61,11 +191,50 @@
         </table>
         {{$orders->links()}}
         {!! $orders->appends(\Request::except('page'))->render() !!}
+
+    <!-- edit order item modal -->
+    <div class="modal fade" id="orderItemModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">Edit Order item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('extra-js')
     <script type="text/javascript">
-        swal("Hello world!");
+        $(".del_order_btn").on('click', function () {
+
+        });
+
+        $(document).ready(function() {
+            const orderItemEditBtn = $('.order_item_btn');
+            const orderItemModal = $('.order_item_modal');
+
+            orderItemEditBtn.on('click', function () {
+                var orderId = $('#order-id').val($(this).data('order-id'));
+                var itemId = $('#item-id').val($(this).data('item-id'));
+                var title = $('#title').val($(this).data('title'));
+                var qty = $('#quantity').val($(this).data('quantity'));
+
+                orderItemModal.modal();
+            })
+        });
+
         //select all checkboxes
         $("#select_all").change(function(){  //"select all" change
             var status = this.checked; // "select all" checked status
@@ -85,6 +254,30 @@
                 $("#select_all")[0].checked = true; //change "select all" checked status to true
             }
         });
+
+
+        {{--$('.order-status').change(function () {--}}
+        {{--    const orderId = $(this).attr('order-no');--}}
+        {{--    const selectedStatus = $(this).val();--}}
+        {{--    if(orderId && selectedStatus) {--}}
+        {{--        $.ajax({--}}
+        {{--            --}}{{--url: '{{route('order.status.update')}}',--}}
+        {{--            // type: "post",--}}
+        {{--            // data: {--}}
+        {{--            //     orderId,--}}
+        {{--            //     selectedStatus--}}
+        {{--            // },--}}
+        {{--                    swal("Error!", "Unable to update order status!", "error");--}}
+        {{--            // success: function (response) {--}}
+        {{--            //     if(response.success) {--}}
+        {{--            //         window.location.reload();--}}
+        {{--            //     } else {--}}
+        {{--            //         swal("Error!", "Unable to update order status!", "error")--}}
+        {{--            //     }--}}
+        {{--            // }--}}
+        {{--        });--}}
+        {{--    }--}}
+        {{--});--}}
     </script>
 @endsection
 

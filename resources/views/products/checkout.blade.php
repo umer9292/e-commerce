@@ -94,8 +94,12 @@
                         <div class="col-md-5 mb-3">
                             <label for="country">Country</label>
                             <select name="country" class="custom-select d-block w-100" id="country" required="">
-                                <option value="">Choose...</option>
-                                <option>United States</option>
+                                <option hidden selected>Choose...</option>
+                                @if($countries->count() > 0)
+                                    @foreach($countries as $country).
+                                        <option value="{{$country->iso_3166_2}}">{{$country->name}}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
@@ -103,6 +107,10 @@
                             <select name="state" class="custom-select d-block w-100" id="state" required="">
                                 <option value="">Choose...</option>
                                 <option>California</option>
+                                <option>KPK</option>
+                                <option>Sindh</option>
+                                <option>San Fransco</option>
+                                <option>Punjab</option>
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">

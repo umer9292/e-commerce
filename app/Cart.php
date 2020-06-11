@@ -30,7 +30,7 @@ class Cart
 
         $products['qty'] += $qty;
         $products['price'] = $product->price * $products['qty'];
-        $products['weight'] += $product->weight;
+        $products['weight'] = $product->weight;
         $this->contents[$product->id] = $products;
         $this->totalQty += $qty;
         $this->totalPrice += $product->price;

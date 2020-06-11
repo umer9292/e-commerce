@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use App\OrderItem;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrderItemController extends Controller
@@ -14,6 +16,48 @@ class OrderItemController extends Controller
      */
     public function index()
     {
+        //
+    }
+
+    public function updateOrderItem(Request $request)
+    {
+        try{
+            $orderId = $request->order_id;
+            $itemId = $request->id;
+
+            $getItem = OrderItem::where([
+                ['id', '=', $itemId],
+                ['order_id', '=', $orderId]
+            ])->first();
+
+            if ($getItem) {
+
+                $oldWeight = $getItem->weight;
+                $oldPrice = $getItem->price;
+
+                $getProduct = $getItem->product();
+                $qty = $request->quantity;
+                $newWeight = $getProduct->weight * $qty;
+                $newPrice = $getProduct->price * $qty;
+
+                $getItem->update([
+                    'quantity' => $qty,
+                    'price' => $newPrice,
+                    'weight' => $newWeight
+                ]);
+
+                $getOrder = Order::find($orderId);
+                $getOrder->update([
+                    'weight' => $getOrder->weight - $oldWeight + $newWeight,
+                    'price' => $getOrder->price - $oldPrice + $newPrice,
+                ]);
+
+                return back()->with('success', 'Order Item successfully Updated.');
+            }
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+        return back()->with('error', 'Unable to update Order item!!');
 
     }
 

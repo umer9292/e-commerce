@@ -11,6 +11,7 @@ use App\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Webpatser\Countries\Countries;
 
 class HomeController extends Controller
 {
@@ -80,7 +81,7 @@ class HomeController extends Controller
         }
 
         $cart = Session::get('cart');
-        return view('products.cart', compact('cart', 'productImage'));
+        return view('products.cart', compact('cart'));
     }
 
     public function checkout()
@@ -88,8 +89,10 @@ class HomeController extends Controller
         if (!Session::has('cart') || empty(Session::get('cart')->getContents())) {
             return redirect('/')->with('info', 'Info - No Products in the Cart');
         }
+
+        $countries = Countries::all();
         $cart = Session::get('cart');
-        return view('products.checkout', compact('cart'));
+        return view('products.checkout', compact('cart', 'countries'));
     }
 
     public function storeCheckout(Request $request)

@@ -70,6 +70,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         'uses' => 'ProductController@createPdf'
     ]);
 
+
+    Route::post('/status-update', [
+        'as' => 'order.status.update',
+        'uses' => 'OrderController@updateStatusHandler'
+    ]);
+
+    Route::post('/status-update', [
+        'as' => 'order.status.update',
+        'uses' => 'OrderController@updateStatusHandler'
+    ]);
+
+    Route::post('/order-item-update', [
+        'as' => 'order.item.update',
+        'uses' => 'OrderItemController@updateOrderItem'
+    ]);
+
     //  Resources Routes
     Route::resource('product', 'ProductController');
     Route::resource('category', 'CategoryController');

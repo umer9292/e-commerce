@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderItem;
+use App\OrderStatus;
 use Illuminate\Http\Request;
+use Webpatser\Countries\Countries;
 
 class OrderController extends Controller
 {
@@ -14,11 +17,22 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with(['customer', 'orderStatus'])
-                    ->orderByDesc('id')
-                    ->sortable()
+        $orderStatus = OrderStatus::all();
+        $countries = Countries::all();
+
+        $orders = Order::with(['customer', 'orderStatus', 'orderItems'])
+                    ->sortable(['id' => 'desc'])
                     ->paginate(20);
-        return view('admin.orders.list', compact('orders'));
+        return view('admin.orders.list',
+            compact('orders',
+            'orderStatus',
+            'countries'
+            ));
+    }
+
+    public function updateStatusHandler($orderId, $selectedStatus)
+    {
+        dd($orderId, $selectedStatus);
     }
 
     /**

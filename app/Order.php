@@ -16,15 +16,15 @@ class Order extends Model
     protected $table = 'orders';
     protected $guarded = [];
 
-    public $sortable = ['country', 'total', 'weight', 'status'];
+    public $sortable = ['id', 'country', 'price', 'weight', 'status'];
 
 
     public function orderStatus()
     {
-        return $this->hasOne('App\OrderStatus', 'id', 'status_id');
+        return $this->hasOne(OrderStatus::class, 'id', 'status_id');
     }
 
-    public function orderItem()
+    public function orderItems()
     {
         return $this->hasMany('App\OrderItem');
     }
