@@ -81,6 +81,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         'uses' => 'OrderController@updateStatusHandler'
     ]);
 
+    Route::post('/delivery-address-update', [
+        'as' => 'delivery.address.update',
+        'uses' => 'OrderController@updateDeliveryAddress'
+    ]);
+
+    Route::post('/update-customer', [
+        'as' => 'customer.update',
+        'uses' => 'OrderController@updateCustomer'
+    ]);
+
     Route::post('/order-item-update', [
         'as' => 'order.item.update',
         'uses' => 'OrderItemController@updateOrderItem'

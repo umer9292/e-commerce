@@ -58,7 +58,6 @@ class OrderItemController extends Controller
             dd($e->getMessage());
         }
         return back()->with('error', 'Unable to update Order item!!');
-
     }
 
     /**

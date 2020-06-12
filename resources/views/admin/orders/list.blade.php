@@ -108,70 +108,77 @@
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td colspan="9">
-                                                            <strong>Payment Method: <span class="badge badge-success">Paypal</span></strong>
-                                                            <br>
-                                                            <strong>Market Place: <small class="badge badge-pill badge-success">Bhatti Town</small></strong>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <b>Delivery Address:</b>
-                                                            <a href=""
-
-                                                            >
-                                                                <i class="fas fa-edit text-success"></i>
-                                                            </a><br>
-                                                            <small>
-                                                                {{$order->customer->first_name . ' ' . $order->customer->last_name}} <br>
-                                                                {{$order->customer->address_1}}<br>
-                                                                {{$order->customer->address_2}}
-                                                            </small>
-                                                        </td>
-                                                        <td colspan="1">
-                                                            <b>Customer:</b>
-                                                            <a href="">
-                                                                <i class="fas fa-edit text-success"></i>
-                                                            </a><br>
-                                                            <table class="table">
-                                                                <tr>
-                                                                    <td>E-Mail</td>
-                                                                    <td>{{$order->customer->email}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Phone</td>
-                                                                    <td>{{$order->customer->phone}}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>CelPhone</td>
-                                                                    <td>{{$order->customer->phone}}</td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td colspan="4">
-                                                            <br>
-                                                            <table class="table table-bordered">
-                                                                <tr>
-                                                                    <td>Shipping</td>
-                                                                    <td>0 Rs</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Total</td>
-                                                                    <td>{{floor($order->price)}}Rs</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Whereof tax</td>
-                                                                    <td>115Rs</td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        </>
-                                                    </tr>
                                                 @endforeach
                                             @endif
+                                            <tr>
+                                                <td colspan="9">
+                                                    <strong>Payment Method: <span class="badge badge-success">Paypal</span></strong>
+                                                    <br>
+                                                    <strong>Market Place: <small class="badge badge-pill badge-success">Bhatti Town</small></strong>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <b>Delivery Address:</b>
+                                                    <a href="javascript:void(0)"
+                                                       class="delivery_address_btn"
+                                                       data-order-id="{{$order->id}}"
+                                                       data-customer-id="{{$order->customer_id}}"
+                                                       data-address-1="{{$order->customer->address_1}}"
+                                                       data-address-2="{{$order->customer->address_2}}"
+                                                    >
+                                                        <i class="fas fa-edit text-success"></i>
+                                                    </a><br>
+                                                    <small>
+                                                        {{ucwords($order->customer->first_name . ' ' . $order->customer->last_name)}} <br>
+                                                        {{$order->customer->address_1}}<br>
+                                                        {{$order->customer->address_2}}
+                                                    </small>
+                                                </td>
+                                                <td colspan="1">
+                                                    <b>Customer:</b>
+                                                    <a href="javascript:void(0)"
+                                                       class="customer_edit_btn"
+                                                       data-order-id="{{$order->id}}"
+                                                       data-customer-id="{{$order->customer_id}}"
+                                                       data-email="{{$order->customer->email}}"
+                                                       data-phone="{{$order->customer->phone}}"
+                                                    >
+                                                        <i class="fas fa-edit text-success"></i>
+                                                    </a><br>
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>E-Mail</td>
+                                                            <td>{{$order->customer->email}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phone</td>
+                                                            <td>{{$order->customer->phone}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>CelPhone</td>
+                                                            <td>{{$order->customer->phone}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td colspan="4">
+                                                    <br>
+                                                    <table class="table table-bordered">
+                                                        <tr>
+                                                            <td>Shipping</td>
+                                                            <td>0 Rs</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total</td>
+                                                            <td>{{floor($order->price)}}Rs</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Whereof tax</td>
+                                                            <td>115Rs</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -191,28 +198,6 @@
         </table>
         {{$orders->links()}}
         {!! $orders->appends(\Request::except('page'))->render() !!}
-
-    <!-- edit order item modal -->
-    <div class="modal fade" id="orderItemModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Edit Order item</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 @endsection
 
 @section('extra-js')
@@ -221,6 +206,7 @@
 
         });
 
+        // update order item
         $(document).ready(function() {
             const orderItemEditBtn = $('.order_item_btn');
             const orderItemModal = $('.order_item_modal');
@@ -232,6 +218,36 @@
                 var qty = $('#quantity').val($(this).data('quantity'));
 
                 orderItemModal.modal();
+            })
+        });
+
+        // update customer email & phone
+        $(document).ready(function() {
+            const customerEditBtn = $('.customer_edit_btn');
+            const customerModal = $('.customer_edit_modal');
+
+            customerEditBtn.on('click', function () {
+                var orderId = $('#order-id').val($(this).data('order-id'));
+                var customerId = $('#customer-id').val($(this).data('customer-id'));
+                var email = $('#email').val($(this).data('email'));
+                var phone = $('#phone').val($(this).data('phone'));
+
+                customerModal.modal();
+            })
+        });
+
+        // update delivery address
+        $(document).ready(function() {
+            const deliveryAddressBtn = $('.delivery_address_btn');
+            const deliveryAddressModal = $('.delivery-address-modal');
+
+            deliveryAddressBtn.on('click', function () {
+                var orderId = $('#orderId').val($(this).data('order-id'));
+                var customerId = $('#customerId').val($(this).data('customer-id'));
+                var addressOne = $('#addressOne').val($(this).data('address-1'));
+                var addressTwo = $('#addressTwo').val($(this).data('address-2'));
+
+                deliveryAddressModal.modal();
             })
         });
 
