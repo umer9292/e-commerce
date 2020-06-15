@@ -6,7 +6,9 @@ use App\Customer;
 use App\Order;
 use App\OrderItem;
 use App\OrderStatus;
+use http\Client\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Webpatser\Countries\Countries;
 
 class OrderController extends Controller
@@ -31,37 +33,49 @@ class OrderController extends Controller
             ));
     }
 
-    public function updateStatusHandler($orderId, $selectedStatus)
+    public function updateStatusHandler($orderId, $statusId)
     {
-        dd($orderId, $selectedStatus);
+        try{
+            $response['success'] = false;
+            $getOrder = Order::find($orderId);
+            if ($getOrder) {
+                $getOrder->update(['status_id' => $statusId]);
+                $response['success'] = true;
+            }
+        } catch (\Exception $e) {
+            Log::error($orderId. ' Unable to update order state!!');
+        }
+        return response($response,  $response['success'] ? 200 : 400)
+            ->header('Content-type', 'application/json');
     }
 
     public function updateDeliveryAddress(Request $request)
     {
         try{
+            $response['success'] = false;
             $orderId = $request->order_id;
             $customerId = $request->customer_id;
-
-            $getDeliveryAddress = Customer::where('id', '=', $customerId)->first();
-
-            if ($getDeliveryAddress) {
+            $getCustomer = Customer::where('id', '=', $customerId)->first();
+            if ($getCustomer) {
                 $addressOne = $request->address_1;
                 $addressTwo = $request->address_2;
-                $getDeliveryAddress->update([
+                $getCustomer->update([
                     'address_1' => $addressOne,
                     'address_2' => $addressTwo
                 ]);
-                return back()->with('success', 'Delivery address successfully Updated.');
+                $response['success'] = true;
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error($orderId. $customerId . ' Unable to update delivery address!!');
         }
-        return back()->with('error', 'Unable to update Order Delivery address!!');
+        return response($response,  $response['success'] ? 200 : 400)
+            ->header('Content-type', 'application/json');
     }
 
     public function updateCustomer(Request $request)
     {
         try{
+            $response['success'] = false;
             $orderId = $request->order_id;
             $customerId = $request->customer_id;
 
@@ -74,12 +88,13 @@ class OrderController extends Controller
                     'email' => $email,
                     'phone' => $phone
                 ]);
-                return back()->with('success', 'Customer successfully Updated.');
+                $response['success'] = true;
             }
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            Log::error($orderId. $customerId . ' Unable to update customer email & phone!!');
         }
-        return back()->with('error', 'Unable to update Customer!!');
+        return response($response,  $response['success'] ? 200 : 400)
+            ->header('Content-type', 'application/json');
     }
 
     /**

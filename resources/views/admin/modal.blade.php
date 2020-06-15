@@ -43,7 +43,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('customer.update')}}" method="POST" accept-charset="utf-8">
+                <form method="POST" id="customerForm">
                     @csrf
                     <input type="hidden" id="order-id" name="order_id">
                     <input type="hidden" id="customer-id" name="customer_id">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12 text-right">
-                            <input type="submit" name="submit" class="btn btn-primary" value="Update">
+                            <input type="submit" name="submit" class="btn btn-primary" value="Save">
                         </div>
                     </div>
                 </form>
@@ -77,7 +77,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('delivery.address.update')}}" method="POST" accept-charset="utf-8">
+                <form method="post" id="addressForm">
                     @csrf
                     <input type="hidden" id="orderId" name="order_id">
                     <input type="hidden" id="customerId" name="customer_id">
@@ -91,7 +91,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-12 text-right">
-                            <input type="submit" name="submit" class="btn btn-primary" value="Update">
+                            <input type="submit" class="btn btn-primary" value="Save">
                         </div>
                     </div>
                 </form>

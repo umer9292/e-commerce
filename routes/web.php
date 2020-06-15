@@ -70,13 +70,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
         'uses' => 'ProductController@createPdf'
     ]);
 
-
-    Route::post('/status-update', [
-        'as' => 'order.status.update',
-        'uses' => 'OrderController@updateStatusHandler'
-    ]);
-
-    Route::post('/status-update', [
+    Route::get('/update-status/{order_id}/{status_id}', [
         'as' => 'order.status.update',
         'uses' => 'OrderController@updateStatusHandler'
     ]);

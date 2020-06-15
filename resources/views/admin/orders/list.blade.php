@@ -59,11 +59,11 @@
                                     <div class="row mb-2">
                                         <div class="col-md-12">
                                             <div class="float-right">
-                                                <select class="form-control order-status" order-no="{{$order->id}}">
+                                                <select class="form-control order-status" name="status" order-no="{{$order->id}}">
                                                     <option selected hidden>Select Order Status</option>
                                                     @if(isset($orderStatus) && count($orderStatus) > 0)
                                                         @foreach($orderStatus AS $status)
-                                                            <option value="{{$status->id}}" {{$status->id == $order->orderStatus->id ? 'selected' : null}} >
+                                                            <option value="{{$status->id}}" {{$status->id == $order->status_id ? 'selected' : null}} >
                                                                 {{$status->title}}
                                                             </option>
                                                         @endforeach
@@ -206,11 +206,18 @@
 
         });
 
-        // update order item
         $(document).ready(function() {
+
             const orderItemEditBtn = $('.order_item_btn');
             const orderItemModal = $('.order_item_modal');
+            const customerEditBtn = $('.customer_edit_btn');
+            const customerModal = $('.customer_edit_modal');
+            const deliveryAddressBtn = $('.delivery_address_btn');
+            const deliveryAddressModal = $('.delivery-address-modal');
+            const updateAddressForm = $('#addressForm');
+            const updateCustomerForm = $('#customerForm');
 
+            // update order item
             orderItemEditBtn.on('click', function () {
                 var orderId = $('#order-id').val($(this).data('order-id'));
                 var itemId = $('#item-id').val($(this).data('item-id'));
@@ -218,37 +225,69 @@
                 var qty = $('#quantity').val($(this).data('quantity'));
 
                 orderItemModal.modal();
-            })
-        });
+            });
 
         // update customer email & phone
-        $(document).ready(function() {
-            const customerEditBtn = $('.customer_edit_btn');
-            const customerModal = $('.customer_edit_modal');
 
             customerEditBtn.on('click', function () {
-                var orderId = $('#order-id').val($(this).data('order-id'));
-                var customerId = $('#customer-id').val($(this).data('customer-id'));
-                var email = $('#email').val($(this).data('email'));
-                var phone = $('#phone').val($(this).data('phone'));
+                $('#order-id').val($(this).data('order-id'));
+                $('#customer-id').val($(this).data('customer-id'));
+                $('#email').val($(this).data('email'));
+                $('#phone').val($(this).data('phone'));
 
                 customerModal.modal();
-            })
-        });
+            });
+
+            updateCustomerForm.on('submit', function (e) {
+                e.preventDefault();
+                const formData = $(this).serialize(); // form data as string
+                $.ajax({
+                    url: "{{route('customer.update')}}",
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.success) {
+                            deliveryAddressModal.modal('hide');
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        swal("Error!", "Unable to update delivery address!", "error")
+                    }
+                });
+            });
 
         // update delivery address
-        $(document).ready(function() {
-            const deliveryAddressBtn = $('.delivery_address_btn');
-            const deliveryAddressModal = $('.delivery-address-modal');
 
             deliveryAddressBtn.on('click', function () {
-                var orderId = $('#orderId').val($(this).data('order-id'));
-                var customerId = $('#customerId').val($(this).data('customer-id'));
-                var addressOne = $('#addressOne').val($(this).data('address-1'));
-                var addressTwo = $('#addressTwo').val($(this).data('address-2'));
+                $('#orderId').val($(this).data('order-id'));
+                $('#customerId').val($(this).data('customer-id'));
+                $('#addressOne').val($(this).data('address-1'));
+                $('#addressTwo').val($(this).data('address-2'));
 
-                deliveryAddressModal.modal();
-            })
+                deliveryAddressModal.modal('show');
+            });
+
+            updateAddressForm.on('submit', function (e) {
+                e.preventDefault();
+                const formData = $(this).serialize(); // form data as string
+                $.ajax({
+                    url: "{{route('delivery.address.update')}}",
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    success: function (response) {
+                        if(response.success) {
+                            deliveryAddressModal.modal('hide');
+                            location.reload();
+                        }
+                    },
+                    error: function () {
+                        swal("Error!", "Unable to update delivery address!", "error")
+                    }
+                });
+            });
         });
 
         //select all checkboxes
@@ -272,28 +311,24 @@
         });
 
 
-        {{--$('.order-status').change(function () {--}}
-        {{--    const orderId = $(this).attr('order-no');--}}
-        {{--    const selectedStatus = $(this).val();--}}
-        {{--    if(orderId && selectedStatus) {--}}
-        {{--        $.ajax({--}}
-        {{--            --}}{{--url: '{{route('order.status.update')}}',--}}
-        {{--            // type: "post",--}}
-        {{--            // data: {--}}
-        {{--            //     orderId,--}}
-        {{--            //     selectedStatus--}}
-        {{--            // },--}}
-        {{--                    swal("Error!", "Unable to update order status!", "error");--}}
-        {{--            // success: function (response) {--}}
-        {{--            //     if(response.success) {--}}
-        {{--            //         window.location.reload();--}}
-        {{--            //     } else {--}}
-        {{--            //         swal("Error!", "Unable to update order status!", "error")--}}
-        {{--            //     }--}}
-        {{--            // }--}}
-        {{--        });--}}
-        {{--    }--}}
-        {{--});--}}
+        $('.order-status').change(function () {
+            const orderId = $(this).attr('order-no');
+            const selectedStatus = $(this).val();
+
+            $.ajax({
+                url: `{{url('admin/update-status')}}/${orderId}/${selectedStatus}`,
+                type: "GET",
+                dataType: 'json',
+                success: function (response) {
+                    if(response.success) {
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    swal("Error!", "Unable to update order status!", "error")
+                }
+            });
+        });
     </script>
 @endsection
 
