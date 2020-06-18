@@ -96,4 +96,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::resource('order', 'OrderController');
     Route::resource('orderItem', 'OrderItemController');
     Route::resource('orderStatus', 'OrderStatusController');
+    Route::resource('label', 'LabelController');
 });

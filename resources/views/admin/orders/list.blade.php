@@ -1,6 +1,6 @@
 @extends('admin.layout')
 @section('breadcrumbs')
-    <li class="breadcrumb-item active" aria-current="page">Orders</li>
+    <li class="breadcrumb-item active" aria-current="page">Manage Orders</li>
 @endsection
 @section('content')
     @include('admin.modal')

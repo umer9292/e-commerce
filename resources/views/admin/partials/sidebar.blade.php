@@ -40,11 +40,28 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" role="button" href="#collapseOrder" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOrder">
                     <i class="fas fa-shopping-cart"></i>
-                    Orders
+                    Manage Orders
                 </a>
                 <div class="list-group collapse" id="collapseOrder">
                     <a href="{{route('order.index')}}" class="list-group-item list-group-item-action">Order List</a>
                     <a href="{{route('orderStatus.index')}}" class="list-group-item list-group-item-action">Order Status</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" role="button" href="#collapseShipping" data-toggle="collapse" aria-expanded="false" aria-controls="collapseShipping">
+                    <i class="fas fa-file-alt"></i>
+                    Shipping
+                </a>
+                <div class="list-group collapse" id="collapseShipping">
+                    <a href="" class="list-group-item list-group-item-action">Shipping Dashboard</a>
+                    <a class="list-group-item list-group-item-action collapsed"  role="button" href="#collapseLabels" data-toggle="collapse" aria-expanded="false" aria-controls="collapseLabels">
+                        Labels
+                    </a>
+                    <div class="list-group collapse" id="collapseLabels">
+                        <a href="{{route('label.index')}}" class="list-group-item list-group-item-action padding-left">Stamp Labels</a>
+                        <a href="" class="list-group-item list-group-item-action padding-left">My Pack Labels</a>
+                        <a href="" class="list-group-item list-group-item-action padding-left">Send AgainLabels</a>
+                    </div>
                 </div>
             </li>
             <li class="nav-item">

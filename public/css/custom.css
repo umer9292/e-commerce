@@ -46,6 +46,9 @@ body {
     background-color: transparent;
     border: 0 !important;
 }
+.padding-left {
+    padding-left: 70px !important;
+}
 .list-group-item-action {
     width: 100%;
     color: #fff;
